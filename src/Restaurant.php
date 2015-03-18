@@ -59,7 +59,7 @@
     // // DB
 
     function save() {
-      $statement = $GLOBALS['DB']->query("INSERT INTO restaurants (name, cuisine_id) VALUES ('{$this->getName()}', {$this->getCuisineId()}) RETURNING id;");
+      $statement = $GLOBALS['DB']->query("INSERT INTO restaurants (name, cuisine_id, address, phone) VALUES ('{$this->getName()}', {$this->getCuisineId()}, '{$this->getAddress()}', '{$this->getPhone()}') RETURNING id;");
       $result = $statement->fetch(PDO::FETCH_ASSOC);
       $this->setId($result['id']);
     }
@@ -81,9 +81,11 @@
       $restaurants = array();
       foreach($returned_restaurants as $restaurant) {
         $name = $restaurant['name'];
+        $address = $restaurant['address'];
+        $phone = $restaurant['phone'];
         $cuisine_id = $restaurant['cuisine_id'];
         $id = $restaurant['id'];
-        $new_restaurant = new Restaurant($name, $cuisine_id, $id);
+        $new_restaurant = new Restaurant($name, $address, $phone, $cuisine_id, $id);
         array_push($restaurants, $new_restaurant);
       }
       return $restaurants;

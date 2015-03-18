@@ -75,9 +75,11 @@
       $restaurants = array();
       foreach($returned_restaurants as $restaurant) {
         $name = $restaurant['name'];
+        $address = $restaurant['address'];
+        $phone = $restaurant['phone'];
         $cuisine_id = $restaurant['cuisine_id'];
         $id = $restaurant['id'];
-        $new_restaurant = new Restaurant($name, $cuisine_id, $id);
+        $new_restaurant = new Restaurant($name, $address, $phone, $cuisine_id, $id);
         array_push($restaurants, $new_restaurant);
       }
       return $restaurants;
@@ -87,7 +89,7 @@
     $restaurants = [];
     $returned_restaurants = $GLOBALS['DB']->query("SELECT * FROM restaurants WHERE name = '{$name}';");
     foreach ($returned_restaurants as $restaurant) {
-      $new_Restaurant = new Restaurant($restaurant['name'], $restaurant['cuisine_id'], $restaurant['id']);
+      $new_Restaurant = new Restaurant($restaurant['name'], $restaurant['address'], $restaurant['phone'], $restaurant['cuisine_id'], $restaurant['id']);
       array_push($restaurants, $new_Restaurant);
     }
     return $restaurants;
