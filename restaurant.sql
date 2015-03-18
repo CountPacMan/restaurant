@@ -69,7 +69,9 @@ ALTER SEQUENCE cuisines_id_seq OWNED BY cuisines.id;
 CREATE TABLE restaurants (
     id integer NOT NULL,
     name character varying,
-    cuisine_id integer
+    cuisine_id integer,
+    address character varying,
+    phone character varying
 );
 
 
@@ -115,6 +117,7 @@ ALTER TABLE ONLY restaurants ALTER COLUMN id SET DEFAULT nextval('restaurants_id
 --
 
 COPY cuisines (id, type) FROM stdin;
+8	Moon food
 \.
 
 
@@ -122,14 +125,15 @@ COPY cuisines (id, type) FROM stdin;
 -- Name: cuisines_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
 --
 
-SELECT pg_catalog.setval('cuisines_id_seq', 1, false);
+SELECT pg_catalog.setval('cuisines_id_seq', 8, true);
 
 
 --
 -- Data for Name: restaurants; Type: TABLE DATA; Schema: public; Owner: Guest
 --
 
-COPY restaurants (id, name, cuisine_id) FROM stdin;
+COPY restaurants (id, name, cuisine_id, address, phone) FROM stdin;
+18	Dweezil	8	45 Wudge Ave	(999) 345-9876
 \.
 
 
@@ -137,7 +141,7 @@ COPY restaurants (id, name, cuisine_id) FROM stdin;
 -- Name: restaurants_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
 --
 
-SELECT pg_catalog.setval('restaurants_id_seq', 1, false);
+SELECT pg_catalog.setval('restaurants_id_seq', 18, true);
 
 
 --
