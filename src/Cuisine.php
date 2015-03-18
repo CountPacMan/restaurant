@@ -59,18 +59,28 @@
       return $cuisines;
     }
 
-    // static function getAll() {
-    //   $returned_restaurants = $GLOBALS['DB']->query("SELECT * FROM restaurants;");
-    //   $restaurants = array();
-    //   foreach($returned_restaurants as $restaurant) {
-    //     $description = $restaurant['description'];
-    //     $cuisine_id = $restaurant['category_id'];
-    //     $id = $restaurant['id'];
-    //     $new_restaurant = new Cuisine($name, $cuisine_id, $id, $due_date);
-    //     array_push($restaurants, $new_restaurant);
-    //   }
-    //   return $restaurants;
-    // }
+    static function getRestaurants() {
+      $returned_restaurants = $GLOBALS['DB']->query("SELECT * FROM restaurants;");
+      $restaurants = array();
+      foreach($returned_restaurants as $restaurant) {
+        $description = $restaurant['description'];
+        $cuisine_id = $restaurant['category_id'];
+        $id = $restaurant['id'];
+        $new_restaurant = new Cuisine($name, $cuisine_id, $id, $due_date);
+        array_push($restaurants, $new_restaurant);
+      }
+      return $restaurants;
+    }
+
+    static function search($name) {
+    $restaurants = [];
+    $returned_restaurants = $GLOBALS['DB']->query("SELECT * FROM restaurants WHERE name = '{$name}';");
+    foreach ($returned_restaurants as $restaurant) {
+      $new_Restaurant = new Restaurant($restaurant['name'], $restaurant['cuisine_id'], $restaurant['id']);
+      array_push($restaurants, $new_Restaurant);
+    }
+    return $restaurants;
+  }
 
     static function deleteAll() {
       $GLOBALS['DB']->exec("DELETE FROM cuisines *;");
