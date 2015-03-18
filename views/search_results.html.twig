@@ -11,7 +11,7 @@
 
         {% for result in results %}
           <ul>
-            <li>Your search term '{{ search_term }}' in category {{ result.getDescription }} is due on {{ result.getDueDate }}</li>
+            <li>{{ search_term }} serves {{ result }} </li>
           </ul>
         {% endfor %}
       {% else %}
