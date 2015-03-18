@@ -6,7 +6,6 @@
     */
 
   require_once "src/Cuisine.php";
-  // require_once "src/Restaurant.php";
 
   $DB = new PDO('pgsql:host=localhost;dbname=restaurant_test');
 
@@ -16,6 +15,7 @@
       Spec 3. Database saves entry.
       Spec 4. User requests a cuisine by id. Returns cuisine object.
   */
+
   class CategoryTest extends PHPUnit_Framework_TestCase {
 
     protected function tearDown() {
