@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel='stylesheet' href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <title>Restaurant Thinger!</title>
+  </head>
+  <body>
+    <div class='container'>
+      <h1>{{ cuisine.getType }}</h1>
+
+      {% if restaurants is not empty %}
+        <p>Here are the restaurants:</p>
+        <ul>
+          {% for restaurant in restaurants %}
+            <li>{{ restaurant.getName }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+
+      <h4>Add a restaurant</h4>
+
+      <form action='/restaurants' method='post'>
+        <input id='cuisine_id' name='cuisine_id' type='hidden' value='{{ cuisine.getId }}'>
+        <div class='form-group'>
+          <label for='name'>Restaurant name:</label>
+          <input id='name' name='name' class='form-control' type='text'>
+        </div>
+        <button type='submit' class='btn btn-success'>Add restaurant!</button>
+      </form>
+
+      <p><a href='/cuisines/{{ cuisine.getId }}/edit'>Edit this cuisine!</a></p>
+      <p><a href='/'>Home!</a></p>
+
+    </div>
+  </body>
+</html>

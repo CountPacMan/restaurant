@@ -15,7 +15,7 @@
   Request::enableHttpMethodParameterOverride();
 
   $app->get("/", function() use ($app) {
-    return $app['twig']->render('index.html.twig', array('cuisines' => Cuisine::getAll()));
+    return $app['twig']->render('index.html.twig', array('cuisines' => Cuisine::getAllCuisines()));
   });
 
   $app->get("/cuisines/{id}", function($id) use ($app) {
@@ -38,7 +38,7 @@
   $app->post("/cuisines", function() use ($app) {
     $cuisine = new Cuisine($_POST['type']);
     $cuisine->save();
-    return $app['twig']->render('index.html.twig', array('cuisines' => Cuisine::getAll()));
+    return $app['twig']->render('index.html.twig', array('cuisines' => Cuisine::getAllCuisines()));
   });
 
   $app->post("/restaurants", function() use ($app) {
@@ -72,7 +72,7 @@
   $app->delete("/cuisines/{id}", function($id) use ($app) {
     $cuisine = Cuisine::find($id);
     $cuisine->delete();
-    return $app['twig']->render('index.html.twig', array('cuisines' => Cuisine::getAll()));
+    return $app['twig']->render('index.html.twig', array('cuisines' => Cuisine::getAllCuisines()));
   });
 
   return $app;
