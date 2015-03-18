@@ -29,40 +29,51 @@
     // DB
 
     function save() {
-      $statement = $GLOBALS['DB']->query("INSERT INTO tasks (description, category_id, due_date) VALUES ('{$this->getDescription()}', {$this->getCategoryId()}, '{$this->getDueDate()}') RETURNING id;");
+      $statement = $GLOBALS['DB']->query("INSERT INTO cuisines (type) VALUES ('{$this->getType()}') RETURNING id;");
       $result = $statement->fetch(PDO::FETCH_ASSOC);
       $this->setId($result['id']);
     }
 
-    static function find($search_id) {
-      $found_task = null;
-      $tasks = Cuisine::getAll();
-      foreach ($tasks as $task) {
-        $task_id = $task->getId();
-        if ($task_id == $search_id) {
-          $found_task = $task;
+    static function find($id) {
+      $found_cuisines = null;
+      $cuisines = Cuisine::getAllCuisines();
+      foreach ($cuisines as $cuisine) {
+        $cuisine_id = $cuisine->getId();
+        if ($cuisine_id == $id) {
+          $found_cuisines = $cuisine;
         }
       }
-      return $found_task;
+      return $found_cuisines;
     }
 
-    static function getAll() {
-      $returned_tasks = $GLOBALS['DB']->query("SELECT * FROM tasks;");
-      $tasks = array();
-      foreach($returned_tasks as $task) {
-        $description = $task['description'];
-        $category_id = $task['category_id'];
-        $id = $task['id'];
-        $due_date = $task['due_date'];
-        $due_date = str_replace("-", "/", $due_date);
-        $new_task = new Cuisine($description, $category_id, $id, $due_date);
-        array_push($tasks, $new_task);
+
+    static function getAllCuisines() {
+      $returned_cuisines = $GLOBALS['DB']->query("SELECT * FROM cuisines;");
+      $cuisines = array();
+      foreach($returned_cuisines as $cuisine) {
+        $type = $cuisine['type'];
+        $id = $cuisine['id'];
+        $new_cuisine = new Cuisine($type, $id);
+        array_push($cuisines, $new_cuisine);
       }
-      return $tasks;
+      return $cuisines;
     }
+
+    // static function getAll() {
+    //   $returned_restaurants = $GLOBALS['DB']->query("SELECT * FROM restaurants;");
+    //   $restaurants = array();
+    //   foreach($returned_restaurants as $restaurant) {
+    //     $description = $restaurant['description'];
+    //     $cuisine_id = $restaurant['category_id'];
+    //     $id = $restaurant['id'];
+    //     $new_restaurant = new Cuisine($name, $cuisine_id, $id, $due_date);
+    //     array_push($restaurants, $new_restaurant);
+    //   }
+    //   return $restaurants;
+    // }
 
     static function deleteAll() {
-      $GLOBALS['DB']->exec("DELETE FROM tasks *;");
+      $GLOBALS['DB']->exec("DELETE FROM cuisines *;");
     }
   }
 ?>
