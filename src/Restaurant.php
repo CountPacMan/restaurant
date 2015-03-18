@@ -1,11 +1,15 @@
 <?php
   class Restaurant {
     private $name;
+    private $address;
+    private $phone;
     private $cuisine_id;
     private $id;
 
-    function __construct($name, $cuisine_id = null, $id = null) {
+    function __construct($name, $address, $phone, $cuisine_id = null, $id = null) {
       $this->name = $name;
+      $this->address = $address;
+      $this->phone = $phone;
       $this->cuisine_id = $cuisine_id;
       $this->id = $id;
     }
@@ -13,6 +17,14 @@
     // getters
     function getName()  {
       return $this->name;
+    }
+
+    function getAddress() {
+      return $this->address;
+    }
+
+    function getPhone() {
+      return $this->phone;
     }
 
     function getCuisineId() {
@@ -26,6 +38,14 @@
     // setters
     function setName($name)  {
       $this->name = (string) $name;
+    }
+
+    function setAddress($address) {
+      $this->address = $address;
+    }
+
+    function setPhone($phone) {
+      $this->phone = $phone;
     }
 
     function setCuisineId($cuisine_id) {
